@@ -1,0 +1,62 @@
+Sub FF2025D05()
+
+i = Range("a1")
+ilen = Len(i)
+d = 0
+
+Dim t() As Variant
+ReDim t(ilen, 1)
+
+For x = 1 To ilen
+t(x, 0) = Mid(i, x, 1)
+t(x, 1) = 0
+Next x
+
+ts = 1
+t(ts, 1) = 1
+
+Do Until te = ilen
+tname = t(ts, 0)
+cp = ts
+found = False
+        Do Until found = True
+            If cp + 1 > ilen Then
+            cp = 1
+            Else
+            cp = cp + 1
+            End If
+            If t(cp, 0) = tname Then
+            te = cp
+            t(te, 1) = 1
+            d = Abs(te - ts)
+                If tname = UCase(tname) Then
+                d3 = d * -1
+                Else
+                d3 = d
+                End If
+            Exit Do
+            End If
+        Loop
+td = td + d
+td3 = td3 + d3
+If cp + 1 > ilen Then
+ts = 1
+Else
+ts = cp + 1
+End If
+t(ts, 1) = 1
+Loop
+
+ansp1 = td
+Debug.Print ansp1
+ansp2 = ""
+For x = 1 To ilen
+    If t(x, 1) = 0 And InStr(1, ansp2, t(x, 0)) = 0 Then
+    ansp2 = ansp2 & t(x, 0)
+    End If
+Next x
+Debug.Print ansp2
+ansp3 = td3
+Debug.Print ansp3
+    
+End Sub
