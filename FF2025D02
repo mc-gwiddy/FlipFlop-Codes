@@ -1,0 +1,26 @@
+Part 1 Formula:
+=LET(d,MID(A1,SEQUENCE(LEN(A1)),1),
+h,SCAN(0,d,LAMBDA(a,v,IF(v="v",a-1,a+1))),
+ans,MAX(h),
+ans)
+
+Part 2 Formula:
+=LET(d,MID(A1,SEQUENCE(LEN(A1)),1),
+prevd,INDEX(d,SEQUENCE(LEN(A1))-1),
+chng,IF(d=prevd,SWITCH(d,"^",1,"v",-1),d),
+adders,SCAN(0,chng,LAMBDA(a,v,IFS(v="v",-1,v="^",1,TRUE,a+v))),
+vals,SCAN(0,adders,LAMBDA(a,v,a+v)),
+ans,MAX(vals),
+ans)
+
+Part 3 Formula:
+=LET(d,MID(A1,SEQUENCE(LEN(A1)),1),
+prevd,INDEX(d,SEQUENCE(LEN(A1))-1),
+nextd,INDEX(d,SEQUENCE(LEN(A1))+1),
+chng,IF(d=prevd,SWITCH(d,"^",1,"v",-1),d),
+adders,SCAN(0,chng,LAMBDA(a,v,IFS(v="v",-1,v="^",1,TRUE,a+v))),
+ends,IFERROR(d<>nextd,TRUE),
+vals,FILTER(adders,ends),
+fn,BYROW(vals,LAMBDA(x,ROUND((((1+SQRT(5))/2)^ABS(x)-((1-SQRT(5))/2)^ABS(x))/SQRT(5),0)*IF(x<0,-1,1))),
+ans,MAX(SCAN(0,fn,LAMBDA(a,v,a+v))),
+ans)
