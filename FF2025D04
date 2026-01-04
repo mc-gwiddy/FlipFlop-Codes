@@ -1,0 +1,37 @@
+Part 1 Formula:
+=LET(rng,A.:.A,
+x,--TEXTBEFORE(rng,","),
+y,--TEXTAFTER(rng,","),
+prevc,VSTACK("0,0",INDEX(rng,SEQUENCE(ROWS(rng)-1))),
+prevx,--TEXTBEFORE(prevc,","),
+prevy,--TEXTAFTER(prevc,","),
+dist,ABS(x-prevx)+ABS(y-prevy),
+ans,SUM(dist),
+ans)
+
+Part 2 Formula:
+=LET(rng,A.:.A,
+x,--TEXTBEFORE(rng,","),
+y,--TEXTAFTER(rng,","),
+prevc,VSTACK("0,0",INDEX(rng,SEQUENCE(ROWS(rng)-1))),
+prevx,--TEXTBEFORE(prevc,","),
+prevy,--TEXTAFTER(prevc,","),
+xd,ABS(x-prevx),
+yd,ABS(y-prevy),
+dist,IFS(xd=yd,xd,x=prevx,yd,y=prevy,xd,TRUE,IF(xd>yd,xd,yd)),
+ans,SUM(dist),
+ans)
+
+Part 3 Formula:
+=LET(rng,A.:.A,
+newo,SORTBY(rng,--TEXTBEFORE(rng,",")+--TEXTAFTER(rng,",")),
+x,--TEXTBEFORE(newo,","),
+y,--TEXTAFTER(newo,","),
+prevc,VSTACK("0,0",INDEX(newo,SEQUENCE(ROWS(newo)-1))),
+prevx,--TEXTBEFORE(prevc,","),
+prevy,--TEXTAFTER(prevc,","),
+xd,ABS(x-prevx),
+yd,ABS(y-prevy),
+dist,IFS(xd=yd,xd,x=prevx,yd,y=prevy,xd,TRUE,IF(xd>yd,xd,yd)),
+ans,SUM(dist),
+ans)
