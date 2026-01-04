@@ -1,0 +1,25 @@
+Part 1 Formula:
+=LET(rng,A.:.A,
+tot,GROUPBY(rng,rng,COUNTA,,0),
+ans,XLOOKUP(MAX(CHOOSECOLS(tot,2)),CHOOSECOLS(tot,2),CHOOSECOLS(tot,1)),
+ans)
+
+Part 2 Formula:
+=LET(color,BYROW(A.:.A,LAMBDA(x,LET(
+a,--TEXTSPLIT(x,,","),
+b,MAX(a),
+c,OR(CHOOSEROWS(a,1)=CHOOSEROWS(a,2),CHOOSEROWS(a,1)=CHOOSEROWS(a,3),CHOOSEROWS(a,2)=CHOOSEROWS(a,3)),
+d,XMATCH(b,a,0),
+IF(c,"Special",SWITCH(d,1,"Red",2,"Green",3,"Blue"))))),
+ans,ROWS(FILTER(color,color="Green")),
+ans)
+
+Part 3 Formula:
+=LET(color,BYROW(A.:.A,LAMBDA(x,LET(
+a,--TEXTSPLIT(x,,","),
+b,MAX(a),
+c,OR(CHOOSEROWS(a,1)=CHOOSEROWS(a,2),CHOOSEROWS(a,1)=CHOOSEROWS(a,3),CHOOSEROWS(a,2)=CHOOSEROWS(a,3)),
+d,XMATCH(b,a,0),
+IF(c,10,SWITCH(d,1,5,2,2,3,4))))),
+ans,SUM(color),
+ans)
