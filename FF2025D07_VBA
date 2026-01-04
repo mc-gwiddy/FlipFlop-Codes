@@ -1,0 +1,37 @@
+Sub FF2025D07_FINAL()
+
+gcount = Application.CountA(Range("a:a"))
+
+Dim nfact As LongLong
+Dim dfact As LongLong
+
+For g = 1 To gcount
+gd = Range("a" & g)
+dc = CInt(Split(gd, " ")(0))
+ds = CInt(Split(gd, " ")(1))
+gx = CInt(Split(gd, " ")(0))
+gy = CInt(Split(gd, " ")(1))
+gz = gx
+sp1 = gx + gy - 2
+sp2 = gx + gy + gz - 3
+
+sp3 = ds * dc - dc
+
+nfact1 = Application.Fact(sp1)
+nfact2 = Application.Fact(sp2)
+
+nfact3 = Application.Fact(sp3)
+dfact3 = Application.Fact(ds - 1) ^ dc
+
+ansp3 = ansp3 + nfact3 / dfact3
+xyfact = Application.Fact(gx - 1) * Application.Fact(gy - 1)
+ansp1 = ansp1 + nfact1 / xyfact
+ansp2 = ansp2 + nfact2 / (xyfact * Application.Fact(gz - 1))
+
+Next g
+
+Debug.Print ansp1
+Debug.Print ansp2
+Debug.Print ansp3
+
+End Sub
