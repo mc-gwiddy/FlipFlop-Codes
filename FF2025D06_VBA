@@ -1,0 +1,48 @@
+Sub FF2025D06()
+
+Dim birds() As Variant
+pfmin = 250
+pfmax = 750
+Dim tmult As LongLong
+Dim t As LongLong
+
+bcount = Application.CountA(Range("a:a"))
+ReDim birds(bcount, 3)
+
+For b = 1 To bcount
+bv = Range("a" & b)
+birds(b, 0) = CLng(Split(bv, ",")(0)) 'x velocity
+birds(b, 1) = CLng(Split(bv, ",")(1)) 'y velocity
+nx = MathMod(birds(b, 0) * 100, 1000)
+ny = MathMod(birds(b, 1) * 100, 1000)
+    If nx >= pfmin And nx < pfmax And ny >= pfmin And ny < pfmax Then
+    ansp1 = ansp1 + 1
+    End If
+
+    For t = 1 To 1000
+    tbirds = 0
+        tmult = 3600 * t
+        nx = MathMod((tmult * birds(b, 0)), 1000)
+        ny = MathMod((tmult * birds(b, 1)), 1000)
+            If nx >= pfmin And nx < pfmax And ny >= pfmin And ny < pfmax Then
+            ansp2 = ansp2 + 1
+            End If
+        tmult = 31556926 * t
+        nx = MathMod((tmult * birds(b, 0)), 1000)
+        ny = MathMod((tmult * birds(b, 1)), 1000)
+            If nx >= pfmin And nx < pfmax And ny >= pfmin And ny < pfmax Then
+            ansp3 = ansp3 + 1
+            End If
+    Next t
+
+Next b
+
+Debug.Print ansp1
+Debug.Print ansp2
+Debug.Print ansp3
+
+End Sub
+
+Function MathMod(n As Double, d As Double) As Double
+    MathMod = n - d * Int(n / d)
+End Function
