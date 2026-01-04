@@ -1,0 +1,52 @@
+Sub FF2025D07P01_ORIG()
+
+Dim paths As Scripting.Dictionary
+Set paths = New Scripting.Dictionary
+
+gcount = Application.CountA(Range("a:a"))
+
+For g = 1 To gcount
+gd = Range("a" & g)
+gx = CInt(Split(gd, " ")(0))
+gy = CInt(Split(gd, " ")(1))
+sp = gx + gy - 1
+
+paths.Add "", ""
+spcount = 0
+pcount = 1
+
+Do Until spcount = paths.Count
+    For Each p In paths
+        pathv = paths(p)
+        plen = Len(pathv)
+            If plen + 1 < sp Then
+            xlen = Len(pathv) - Len(Replace(pathv, "X", "")) + 1
+            ylen = Len(pathv) - Len(Replace(pathv, "Y", "")) + 1
+                If xlen = gx Then
+                pathv = pathv & "Y"
+                paths(p) = pathv
+                ElseIf ylen = gy Then
+                pathv = pathv & "X"
+                paths(p) = pathv
+                Else
+                paths(p) = pathv & "X"
+                    If paths.Exists(pathv & "Y") = False Then
+                    paths(pathv & "Y") = pathv & "Y"
+                    End If
+                End If
+                                
+                If Len(paths(p)) + 1 = sp Then
+                spcount = spcount + 1
+                End If
+            End If
+    Next p
+Loop
+
+ansp1 = ansp1 + spcount
+paths.RemoveAll
+
+Next g
+
+Debug.Print ansp1
+    
+End Sub
