@@ -1,0 +1,17 @@
+Part 1 Formula:
+=LET(w,A.:A,
+ws,BYROW(w,LAMBDA(x,SUM((LEN(x)-LEN(SUBSTITUTE(x,"ba","")))/2,(LEN(x)-LEN(SUBSTITUTE(x,"na","")))/2,(LEN(x)-LEN(SUBSTITUTE(x,"ne","")))/2))),
+ans,SUM(ws),
+ans)
+
+Part 2 Formula:
+=LET(w,A.:A,
+ws,BYROW(w,LAMBDA(x,SUM((LEN(x)-LEN(SUBSTITUTE(x,"ba","")))/2,(LEN(x)-LEN(SUBSTITUTE(x,"na","")))/2,(LEN(x)-LEN(SUBSTITUTE(x,"ne","")))/2))),
+ans,SUM(FILTER(ws,MOD(ws,2)=0)),
+ans)
+
+Part 3 Formula:
+=LET(w,A.:A,
+ws,BYROW(w,LAMBDA(x,SUM((LEN(x)-LEN(SUBSTITUTE(x,"ba","")))/2,(LEN(x)-LEN(SUBSTITUTE(x,"na","")))/2,(LEN(x)-LEN(SUBSTITUTE(x,"ne","")))/2))),
+ans,SUM(FILTER(ws,NOT(ISNUMBER(SEARCH("ne",w))))),
+ans)
