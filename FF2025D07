@@ -1,0 +1,34 @@
+Part 1 Formula:
+=LET(rng,A.:.A,
+out,BYROW(rng,LAMBDA(in,LET(
+x,--TEXTBEFORE(in," "),
+y,--TEXTAFTER(in," "),
+nfact,FACT(SUM(x,y)-2),
+dfact,PRODUCT(FACT(x-1),FACT(y-1)),
+nfact/dfact))),
+ans,SUM(out),
+ans)
+
+Part 2 Formula:
+=LET(rng,A.:.A,
+out,BYROW(rng,LAMBDA(in,LET(
+x,--TEXTBEFORE(in," "),
+y,--TEXTAFTER(in," "),
+z,x,
+nfact,FACT(SUM(x,y,z)-3),
+dfact,PRODUCT(FACT(x-1),FACT(y-1),FACT(z-1)),
+nfact/dfact))),
+ans,SUM(out),
+ans)
+
+Part 3 Formula:
+=LET(rng,A.:.A,
+out,BYROW(rng,LAMBDA(in,LET(
+dc,--TEXTBEFORE(in," "),
+ds,--TEXTAFTER(in," "),
+sp,ds*dc-dc,
+nfact,FACT(sp),
+dfact,FACT((ds-1))^dc,
+nfact/dfact))),
+ans,SUM(out),
+ans)
